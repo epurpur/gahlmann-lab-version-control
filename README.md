@@ -120,13 +120,117 @@ Remember, the changes we have made are only in effect locally. Now we want to pu
 
 We are working on the main branch of this repository. We will cover branching in the next scenario.
 ```
+git pull origin main
+
 git push origin main
-
-or 
-
-git push
 ```
 
+# Scenario 2: Branching
+
+I briefly touched on branches earlier. Basically, branches are parallel versions of your codebase. The purpose of branching is so that multiple developers can work on code at the same time. This allows for faster development across your team. So far, we have been working only on the main branch of our repository. This isn't really how you should use version control and git in your daily workflow. 
+
+A common workflow is to create a branch for your desired feature and then begin working off that branch. 
+
+### Creating a branch
+
+This creates the branch **locally**
+```
+git branch square_function
+```
+
+Now let's see our local branches to make sure it worked correctly. You see the * next to main, indicating we are still working in the main branch, though we have created a new one called 'square_function'.
+```
+git branch
+```
+
+Now we can move into our new branch. We must check out the branch in order to work in it.
+```
+git checkout square_function
+```
+
+Check to make sure you are working in the new branch
+
+```
+git branch
+```
+
+Now we can work on our new feature in this branch. Let's make some changes to our code. Once we have done that we will push hour changes to our **local branch**
+```
+git status
+
+git add -A
+
+git commit -m "added square function"
+```
+
+Push branch to **remote** repository. We have only made these changes locally so far.
+
+```
+git push -u origin square_function
+```
+
+The '-u' tells git we want to associate our local 'square_function' branch with our remote 'square_function' branch. 
+Now, lets see the status of our branches both **locally** and **remotely**.
+
+```
+git branch -a
+```
+
+### Merging branches
+
+Now that we have created a branch, pushed changes to it, and pushed it to our remote Github repository, it is time to merge our changes into the main branch, which is the top level branch in our repository.
+
+We should check out our main branch **locally** first
+```
+git checkout main
+```
+
+Pull any changes that have been made to the main branch while we have been working on our new feature
+
+```
+git pull origin main
+```
+
+Merge our two branches **locally**
+```
+git merge square_function
+```
+
+### Deleting branches
+
+It is good practice to delete branches once you have merged them with your main branch. This keeps them from cluttering your project
+
+First, we will delete this branch **locally**
+```
+git branch -d square_function
+```
+
+Don't forget that this branch still exists in the remote repository
+```
+git branch -a
+```
+
+Let's delete this branch **remotely**
+```
+git push origin --delete square_function
+```
+
+# Best Practices
 
 
 
+
+
+
+# Other Resources
+
+Here are a few handy resources to refer to about what we have just covered
+
+## Corey Schafer - git workflow series
+Corey Schafer is a guy with a youtube channel that has made great videos that are very educational and easy to follow. I have based entirely what I covered on his version control workshops.
+- [Git Basics](https://www.youtube.com/watch?v=HVsySz-h9r4)
+- [Fixing Common Mistakes and Bad Commits](https://www.youtube.com/watch?v=FdZecVxzJbk&list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&index=2)
+- [The rest of his git series](https://www.youtube.com/watch?v=FdZecVxzJbk&list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&index=2)
+
+## Version Control best practices
+- [My best practices cheat sheet](https://homes.cs.washington.edu/~mernst/advice/version-control.html)
